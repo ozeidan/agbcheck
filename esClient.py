@@ -1,3 +1,4 @@
+import sys
 from datetime import datetime
 from elasticsearch import Elasticsearch
 
@@ -27,3 +28,13 @@ res = es.search(index="agbcheck", body={"query": {"match_all": {}}})
 print("Got %d Hits:" % res['hits']['total'])
 for hit in res['hits']['hits']:
     print("%(timestamp)s %(author)s: %(text)s" % hit["_source"])
+
+
+def main(argv):
+    if(len(argv) < 1):
+        print("Not enough parameters!")
+        return
+
+
+if (__name__ == "__main__"):
+    main(sys.argv[1:])
