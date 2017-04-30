@@ -7,7 +7,7 @@ function getUrl(callback) {
     
     chrome.tabs.query(info, function(tabs) {
         var tab = tabs[0];
-        callback(url);
+        callback(tab.url);
     });
 }
 
@@ -55,6 +55,38 @@ function setText(text) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    setStatus(StateEnum.GOOD);
+    refresh();
 });
 
+
+
+
+function refresh() {
+    getUrl(function(url) {
+        if(!(url in cacheDict))
+            return;
+
+        let entry = cacheDict[url];
+
+        setStatus(entry.state);
+
+        // get the text list
+        let listelem = document.getElementById("mainList");
+
+        // remove all list entries
+        while(listelem.firstChild) {
+            listelem.removeChild(listelem.firstChild);
+        }
+
+        let textlist = entry.textlist;
+        
+        for(let i = 0; i < textlist.length; i++) {
+            let elem = document.createElement("li");
+            elem.textContent = textlist[i];
+            listelem.appendChild(elem);
+        }
+        
+    });
+}
+
+setStatus(StateEnum.NOTFOUND);

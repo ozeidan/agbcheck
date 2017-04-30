@@ -1,6 +1,6 @@
 html, body {
     min-width: 400px;
-    min-height: 550px;
+    display: inline-block;
 }
 
 #mainText {
@@ -10,4 +10,12 @@ html, body {
 
 h1 {
     text-align: center;
+}
+
+li {
+    margin: 10px 0;
+}
+
+ul {
+    padding-left: 25px;
 }
